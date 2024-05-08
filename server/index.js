@@ -13,6 +13,10 @@ app.use(
 
 const PORT = process.env.PORT || 8080;
 
+app.get("/", (req, res) => {
+  res.json({ message: "App running on 8080" });
+});
+
 app.listen(PORT, () => {
   console.log("App running on 8080");
 });
