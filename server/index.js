@@ -1,8 +1,8 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 require("dotenv").config();
 
-const connectDB = require("./config/connectDB");
+import { connectDB } from "./config/connectDB";
 
 const app = express();
 
