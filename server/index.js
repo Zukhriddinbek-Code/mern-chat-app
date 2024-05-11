@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
-require("dotenv").config();
+import dotenv from "dotenv";
 
-import { connectDB } from "./config/connectDB";
+import { connectDB } from "./config/connectDB.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
+dotenv.config();
 
 app.use(
   cors({
@@ -18,6 +20,9 @@ const PORT = process.env.PORT || 8080;
 app.get("/", (req, res) => {
   res.json({ message: "App running on 8080" });
 });
+
+//api endpoints
+app.use("/auth", authRoutes);
 
 connectDB()
   .then((response) => {
