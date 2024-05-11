@@ -1,5 +1,6 @@
 import UserModel from "../models/User.js";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   try {
@@ -62,5 +63,41 @@ export const emailCheck = async (req, res) => {
     return res
       .status(500)
       .json({ message: error.message || error, error: true });
+  }
+};
+
+export const passwordCheck = async (req, res) => {
+  try {
+    const { password, userId } = req.body;
+    const userDoc = await UserModel.findById(userId);
+
+    const isEqual = await bcryptjs.compare(password, userDoc.password);
+    if (!isEqual) {
+      return res.status(401).json({
+        message: "Incorrect Password!",
+        error: true,
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        email: userDoc.email,
+        id: userDoc._id,
+      },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "1d" }
+    );
+    const cookieOptions = { http: true, secure: true };
+
+    return res.cookie("token", token, cookieOptions).status(200).json({
+      message: "Logged in successfully",
+      token: token,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(404).json({
+      message: error.message || error,
+      error: true,
+    });
   }
 };
