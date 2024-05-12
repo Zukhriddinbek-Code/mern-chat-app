@@ -108,7 +108,10 @@ export const userDetails = async (req, res) => {
     const token = req.cookies.token || "";
     const userDoc = await userDetailsToken(token);
 
-    return userDoc;
+    return res.status(200).json({
+      message: "user details",
+      data: userDoc,
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message || error,
