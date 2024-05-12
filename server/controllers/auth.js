@@ -1,6 +1,7 @@
 import UserModel from "../models/User.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import userDetailsToken from "../helper/userDetailsToken.js";
 
 export const signup = async (req, res) => {
   try {
@@ -96,6 +97,20 @@ export const passwordCheck = async (req, res) => {
     });
   } catch (error) {
     return res.status(404).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
+export const userDetails = async (req, res) => {
+  try {
+    const token = req.cookies.token || "";
+    const userDoc = await userDetailsToken(token);
+
+    return userDoc;
+  } catch (error) {
+    return res.status(500).json({
       message: error.message || error,
       error: true,
     });

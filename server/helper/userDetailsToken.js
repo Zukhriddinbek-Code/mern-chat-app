@@ -13,3 +13,5 @@ const userDetailsToken = async (token) => {
   const userDoc = await UserModel.findById(decodeUser.id);
   return userDoc;
 };
+
+export default userDetailsToken;
