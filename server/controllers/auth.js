@@ -134,3 +134,30 @@ export const logout = async (req, res) => {
     });
   }
 };
+
+export const updateUser = async (req, res) => {
+  try {
+    const token = req.cookies.token || "";
+    const userDoc = await userDetailsToken(token);
+
+    const updatedName = req.body.name;
+    const updatedProfile_pic = req.body.profile_pic;
+    const updateUserResult = await UserModel.updateOne(
+      { _id: userDoc._id },
+      { name: updatedName, profile_pic: updatedProfile_pic }
+    );
+
+    const updatedUser = await UserModel.findById(userDoc._id);
+
+    return res.status(201).json({
+      message: "User Updated Successfully",
+      data: updatedUser,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};

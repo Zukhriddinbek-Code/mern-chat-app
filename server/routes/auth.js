@@ -8,6 +8,7 @@ import {
   passwordCheck,
   userDetails,
   logout,
+  updateUser,
 } from "../controllers/auth.js";
 
 //create user api
@@ -24,5 +25,8 @@ router.get("/user-details", userDetails);
 
 //logout user session
 router.get("/logout", logout);
+
+//updated user name, profile_pic
+router.post("/update", updateUser);
 
 export default router;
