@@ -119,3 +119,18 @@ export const userDetails = async (req, res) => {
     });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    const cookieOptions = { http: true, secure: true };
+    return res.status(200).cookie("token", "", cookieOptions).json({
+      message: "session out",
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};

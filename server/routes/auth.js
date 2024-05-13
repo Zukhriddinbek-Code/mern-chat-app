@@ -7,6 +7,7 @@ import {
   emailCheck,
   passwordCheck,
   userDetails,
+  logout,
 } from "../controllers/auth.js";
 
 //create user api
@@ -20,5 +21,8 @@ router.post("/password", passwordCheck);
 
 //loging user details
 router.get("/user-details", userDetails);
+
+//logout user session
+router.get("/logout", logout);
 
 export default router;
