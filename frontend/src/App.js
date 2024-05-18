@@ -1,5 +1,12 @@
+import { Outlet } from "react-router-dom";
+// import Home from "./pages/Home";
+
 const App = () => {
-  return <div className="text-blue-500 ">Mern Chat App</div>;
+  return (
+    <main>
+      <Outlet />
+    </main>
+  );
 };
 
 export default App;
