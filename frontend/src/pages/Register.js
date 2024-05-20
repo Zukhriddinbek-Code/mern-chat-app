@@ -72,6 +72,22 @@ const Register = () => {
               autocomplete="off"
             />
           </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="profile_pic">
+              Photo
+              <div className="h-14 bg-slate-200 flex justify-center items-center border rounded hover:border-primary cursor-pointer">
+                <p className="text-sm">Upload your photo</p>
+              </div>
+            </label>
+
+            <input
+              type="file"
+              id="profile_pic"
+              name="profile_pic"
+              className="bg-slate-100 px-2 py-1 focus:outline-primary hidden"
+            />
+          </div>
         </form>
       </div>
     </div>
