@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -33,11 +34,12 @@ const Register = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log(data);
   };
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4">
+      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto">
         <h3>Welcome to Chat App!</h3>
 
         <form
@@ -120,7 +122,18 @@ const Register = () => {
               onChange={handleUploadPhoto}
             />
           </div>
+
+          <button className="bg-primary text-lg px-4 py-1 hover:bg-secondary rounded mt-2 font-bold text-white leading-relaxed tracking-wide">
+            Register
+          </button>
         </form>
+
+        <p className="my-3 text-center">
+          Already have an account?{" "}
+          <Link to={"/email"} className="hover:text-primary font-semibold">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

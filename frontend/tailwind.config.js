@@ -5,8 +5,11 @@ module.exports = {
     extend: {
       colors: {
         primary: "#00acb4",
+        secondary: "#058187",
       },
     },
   },
   plugins: [],
 };
+
+// #058187
