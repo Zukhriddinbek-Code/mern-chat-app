@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -9,11 +10,29 @@ const Register = () => {
     profile_pic: "",
   });
 
+  const [uploadPhoto, setUploadPhoto] = useState("");
+
+  const handleUploadPhoto = (e) => {
+    const file = e.target.files[0];
+    setUploadPhoto(file);
+  };
+
+  const handleClearUpload = (e) => {
+    e.preventDefault();
+    setUploadPhoto(null);
+    e.stopPropagation();
+  };
+
   const handleOnChange = (e) => {
     const { name, email, password } = e.target.value;
     setData((prev) => {
       return { ...prev, [name]: name };
     });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   return (
@@ -22,6 +41,7 @@ const Register = () => {
         <h3>Welcome to Chat App!</h3>
 
         <form
+          onSubmit={handleFormSubmit}
           className="grid gap-4 mt-4
          "
         >
@@ -37,7 +57,7 @@ const Register = () => {
               value={data.name}
               onChange={handleOnChange}
               required
-              autocomplete="off"
+              autoComplete="off"
             />
           </div>
 
@@ -53,7 +73,7 @@ const Register = () => {
               value={data.email}
               onChange={handleOnChange}
               required
-              autocomplete="off"
+              autoComplete="off"
             />
           </div>
 
@@ -69,7 +89,7 @@ const Register = () => {
               value={data.password}
               onChange={handleOnChange}
               required
-              autocomplete="off"
+              autoComplete="off"
             />
           </div>
 
@@ -77,7 +97,18 @@ const Register = () => {
             <label htmlFor="profile_pic">
               Photo
               <div className="h-14 bg-slate-200 flex justify-center items-center border rounded hover:border-primary cursor-pointer">
-                <p className="text-sm">Upload your photo</p>
+                <p className="text-sm max-w-[300px] text-ellipsis line-clamp-1">
+                  {uploadPhoto?.name || "Upload your photo"}
+                </p>
+
+                {uploadPhoto?.name && (
+                  <button
+                    className="text-lg ml-2 hover:text-red-600"
+                    onClick={handleClearUpload}
+                  >
+                    <IoClose />
+                  </button>
+                )}
               </div>
             </label>
 
@@ -86,6 +117,7 @@ const Register = () => {
               id="profile_pic"
               name="profile_pic"
               className="bg-slate-100 px-2 py-1 focus:outline-primary hidden"
+              onChange={handleUploadPhoto}
             />
           </div>
         </form>
