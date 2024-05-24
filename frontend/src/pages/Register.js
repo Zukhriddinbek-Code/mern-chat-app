@@ -19,15 +19,15 @@ const Register = () => {
   };
 
   const handleClearUpload = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     setUploadPhoto(null);
-    e.stopPropagation();
   };
 
   const handleOnChange = (e) => {
-    const { name, email, password } = e.target.value;
+    const { name, value } = e.target;
     setData((prev) => {
-      return { ...prev, [name]: name };
+      return { ...prev, [name]: value };
     });
   };
 
@@ -39,14 +39,10 @@ const Register = () => {
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm mx-2 rounded overflow-hidden p-4 mx-auto">
+      <div className="bg-white w-full max-w-sm rounded overflow-hidden p-4 mx-auto">
         <h3>Welcome to Chat App!</h3>
 
-        <form
-          onSubmit={handleFormSubmit}
-          className="grid gap-4 mt-4
-         "
-        >
+        <form onSubmit={handleFormSubmit} className="grid gap-4 mt-4">
           {/* name input field */}
           <div className="flex flex-col gap-1">
             <label htmlFor="name">Name</label>
