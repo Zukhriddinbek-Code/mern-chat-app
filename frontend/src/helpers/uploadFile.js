@@ -1,4 +1,4 @@
-const url = `https://api.cloudinary.com/v1_1/${process.env.cloud_name}/auto/upload`;
+const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_cloud_name}/auto/upload`;
 
 const uploadFile = async (file) => {
   const formData = new FormData();
@@ -6,6 +6,7 @@ const uploadFile = async (file) => {
   formData.append("upload_preset", "chat-app-file");
 
   const response = await fetch(url, {
+    method: "post",
     body: formData,
   });
   const responseData = await response.json();

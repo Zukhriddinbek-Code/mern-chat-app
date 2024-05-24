@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import uploadFile from "../helpers/uploadFile";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -13,8 +14,10 @@ const Register = () => {
 
   const [uploadPhoto, setUploadPhoto] = useState("");
 
-  const handleUploadPhoto = (e) => {
+  const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
+    const uploadPhoto = await uploadFile(file);
+    console.log(uploadPhoto);
     setUploadPhoto(file);
   };
 
@@ -39,7 +42,7 @@ const Register = () => {
 
   return (
     <div className="mt-5">
-      <div className="bg-white w-full max-w-sm rounded overflow-hidden p-4 mx-auto">
+      <div className="bg-white w-full max-w-md rounded overflow-hidden p-4 mx-auto">
         <h3>Welcome to Chat App!</h3>
 
         <form onSubmit={handleFormSubmit} className="grid gap-4 mt-4">
