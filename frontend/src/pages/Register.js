@@ -16,9 +16,13 @@ const Register = () => {
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-    const uploadPhoto = await uploadFile(file);
-    console.log(uploadPhoto);
+    const uploadPhotoCloud = await uploadFile(file);
+
     setUploadPhoto(file);
+
+    setData((prev) => {
+      return { ...prev, profile_pic: uploadPhotoCloud?.url };
+    });
   };
 
   const handleClearUpload = (e) => {
