@@ -3,6 +3,7 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 import uploadFile from "../helpers/uploadFile";
 
@@ -47,8 +48,10 @@ const Register = () => {
 
     try {
       const response = await axios.post(url, data);
+      toast.success(response.data.message);
       console.log(response);
     } catch (error) {
+      toast.error(error?.response?.data?.message);
       console.log(error);
     }
   };

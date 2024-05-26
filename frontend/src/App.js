@@ -1,11 +1,15 @@
 import { Outlet } from "react-router-dom";
 // import Home from "./pages/Home";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <main>
-      <Outlet />
-    </main>
+    <>
+      <Toaster />
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 };
 
