@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import uploadFile from "../helpers/uploadFile";
 
 const Register = () => {
@@ -38,10 +40,17 @@ const Register = () => {
     });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(data);
+    const url = `${process.env.REACT_APP_backend_url}auth/signup`;
+
+    try {
+      const response = await axios.post(url, data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
