@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
+import { PiUserCircle } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -41,9 +41,13 @@ const Register = () => {
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-md rounded overflow-hidden p-4 mx-auto">
+        <div className="w-fit mx-auto mb-2">
+          <PiUserCircle size={80} />
+        </div>
+
         <h3>Welcome to Chat App!</h3>
 
-        <form onSubmit={handleFormSubmit} className="grid gap-4 mt-4">
+        <form onSubmit={handleFormSubmit} className="grid gap-4 mt-3">
           {/* email input field */}
           <div className="flex flex-col gap-1">
             <label htmlFor="email">Email</label>
@@ -68,7 +72,7 @@ const Register = () => {
         <p className="my-3 text-center">
           Don't have an account yet?{" "}
           <Link to={"/register"} className="hover:text-primary font-semibold">
-            Login
+            signup
           </Link>
         </p>
       </div>
