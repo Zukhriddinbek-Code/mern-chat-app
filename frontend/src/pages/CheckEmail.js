@@ -30,7 +30,7 @@ const CheckEmail = () => {
       //clearing user input
       if (response.data.success) {
         setData({ email: "" });
-        navigate("/password", { state: response?.data });
+        navigate("/password", { state: response?.data?.data });
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);

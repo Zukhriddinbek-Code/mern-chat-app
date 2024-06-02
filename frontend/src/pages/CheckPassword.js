@@ -4,6 +4,7 @@ import { PiUserCircle } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Avatar from "../components/Avatar";
 
 const CheckPassword = () => {
   const [data, setData] = useState({
@@ -36,8 +37,17 @@ const CheckPassword = () => {
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-md rounded overflow-hidden p-4 mx-auto">
-        <div className="w-fit mx-auto mb-2">
-          <PiUserCircle size={80} />
+        <div className="w-fit mx-auto mb-2 flex justify-center items-center flex-col">
+          {/* <PiUserCircle size={80} /> */}
+          <Avatar
+            width={70}
+            height={70}
+            name={location?.state?.name}
+            imageUrl={location?.state?.profile_pic}
+          />
+          <h2 className="font-semibold text-lg mt-1">
+            {location?.state?.name}
+          </h2>
         </div>
 
         <h3>Welcome to Chat App!</h3>
