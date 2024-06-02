@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Register = () => {
+const CheckEmail = () => {
   const [data, setData] = useState({
     email: "",
   });
@@ -30,7 +30,7 @@ const Register = () => {
       //clearing user input
       if (response.data.success) {
         setData({ email: "" });
-        navigate("/password");
+        navigate("/password", { state: response?.data });
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -80,4 +80,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CheckEmail;

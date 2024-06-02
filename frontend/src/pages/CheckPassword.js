@@ -1,27 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { PiUserCircle } from "react-icons/pi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Register = () => {
+const CheckPassword = () => {
   const [data, setData] = useState({
-    email: "",
+    password: "",
   });
   const navigate = useNavigate();
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
+  const location = useLocation();
+  console.log(location);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = `${process.env.REACT_APP_backend_url}auth/email`;
+    const url = `${process.env.REACT_APP_backend_url}auth/password`;
 
     try {
       const response = await axios.post(url, data);
@@ -29,8 +24,8 @@ const Register = () => {
 
       //clearing user input
       if (response.data.success) {
-        setData({ email: "" });
-        navigate("/password");
+        setData({ password: "" });
+        navigate("/");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -41,20 +36,23 @@ const Register = () => {
   return (
     <div className="mt-5">
       <div className="bg-white w-full max-w-md rounded overflow-hidden p-4 mx-auto">
+        <div className="w-fit mx-auto mb-2">
+          <PiUserCircle size={80} />
+        </div>
+
         <h3>Welcome to Chat App!</h3>
 
-        <form onSubmit={handleFormSubmit} className="grid gap-4 mt-4">
-          {/* email input field */}
+        <form onSubmit={handleFormSubmit} className="grid gap-4 mt-3">
+          {/* password input field */}
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="password">Password</label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="johndoe@chat.com"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="*********"
               className="bg-slate-100 px-2 py-1 focus:outline-primary"
-              value={data.email}
-              onChange={handleOnChange}
+              value={data.password}
               required
               autoComplete="off"
             />
@@ -68,7 +66,7 @@ const Register = () => {
         <p className="my-3 text-center">
           Don't have an account yet?{" "}
           <Link to={"/register"} className="hover:text-primary font-semibold">
-            Login
+            signup
           </Link>
         </p>
       </div>
@@ -76,4 +74,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CheckPassword;
