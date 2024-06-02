@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -16,6 +16,7 @@ const Register = () => {
   });
 
   const [uploadPhoto, setUploadPhoto] = useState("");
+  const navigate = useNavigate();
 
   const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
@@ -48,8 +49,14 @@ const Register = () => {
 
     try {
       const response = await axios.post(url, data);
-      toast.success(response.data.message);
       console.log(response);
+      toast.success(response.data.message);
+
+      //clearing user input
+      if (response.data.success) {
+        setData({ name: "", email: "", password: "", profile_pic: "" });
+        navigate("/email");
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
       console.log(error);
