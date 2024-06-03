@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiUserCircle } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,12 @@ const CheckPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location);
+
+  useEffect(() => {
+    if (!location?.state?.name) {
+      navigate("/email");
+    }
+  });
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -74,9 +80,11 @@ const CheckPassword = () => {
         </form>
 
         <p className="my-3 text-center">
-          Don't have an account yet?{" "}
-          <Link to={"/register"} className="hover:text-primary font-semibold">
-            signup
+          <Link
+            to={"/forgot-password"}
+            className="hover:text-primary font-semibold"
+          >
+            Forgot password?
           </Link>
         </p>
       </div>
