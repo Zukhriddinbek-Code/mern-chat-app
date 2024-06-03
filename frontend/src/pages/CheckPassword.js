@@ -9,16 +9,27 @@ import Avatar from "../components/Avatar";
 const CheckPassword = () => {
   const [data, setData] = useState({
     password: "",
+    userId: "665db7f1a4a6c87541953247",
   });
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     if (!location?.state?.name) {
       navigate("/email");
     }
   });
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setData((preve) => {
+      return {
+        ...preve,
+        [name]: value,
+      };
+    });
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -69,6 +80,7 @@ const CheckPassword = () => {
               placeholder="*********"
               className="bg-slate-100 px-2 py-1 focus:outline-primary"
               value={data.password}
+              onChange={handleOnChange}
               required
               autoComplete="off"
             />
