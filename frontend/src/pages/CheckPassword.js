@@ -9,10 +9,10 @@ import Avatar from "../components/Avatar";
 const CheckPassword = () => {
   const [data, setData] = useState({
     password: "",
-    userId: "665db7f1a4a6c87541953247",
   });
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location.state);
 
   useEffect(() => {
     if (!location?.state?.name) {
@@ -37,7 +37,15 @@ const CheckPassword = () => {
     const url = `${process.env.REACT_APP_backend_url}auth/password`;
 
     try {
-      const response = await axios.post(url, data);
+      const response = await axios({
+        method: "post",
+        url: url,
+        data: {
+          userId: location?.state?._id,
+          password: data.password,
+        },
+        withCredentials: true,
+      });
       toast.success(response.data.message);
 
       //clearing user input
