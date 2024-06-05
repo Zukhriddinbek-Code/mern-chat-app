@@ -20,15 +20,24 @@ const userSlice = createSlice({
       state.id = action.payload._id;
     },
 
-    setToke: (state, action) => {
+    setToken: (state, action) => {
       state.token = action.payload;
+    },
+
+    logout: (state, action) => {
+      state.id = "";
+      state.name = "";
+      state.email = "";
+      state.profile_pic = "";
+      state.id = "";
+      state.token = "";
     },
   },
 });
 
 // `createSlice` automatically generated action creators with these names.
 // export them as named exports from this "slice" file
-export const {} = userSlice.actions;
+export const { setToken, setUser, logout } = userSlice.actions;
 
 // Export the slice reducer as the default export
 export default userSlice.reducer;
