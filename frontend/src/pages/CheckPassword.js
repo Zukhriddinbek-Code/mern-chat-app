@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Avatar from "../components/Avatar";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../redux/userSlice";
 
 const CheckPassword = () => {
   const [data, setData] = useState({
@@ -12,7 +14,7 @@ const CheckPassword = () => {
   });
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!location?.state?.name) {
@@ -50,6 +52,9 @@ const CheckPassword = () => {
 
       //clearing user input
       if (response.data.success) {
+        dispatch(setToken(response?.data?.token));
+        localStorage.setItem("token", response?.data?.token);
+
         setData({ password: "" });
         navigate("/");
       }
