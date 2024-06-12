@@ -1,14 +1,54 @@
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
+import { FaUserPlus } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+
+import Avatar from "../components/Avatar";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Sidebar = () => {
+  const user = useSelector((state) => state?.user);
+  const [editUserOpen, setEditUserOpen] = useState(false);
   return (
     <div className="w-full h-full">
-      <div className="bg-slate-200 w-12 h-full rounded-tr-lg rounded-br-lg py-5">
-        <div
-          className="w-12 h-12 bg-red-500 flex justify-center items-center"
-          title="chat"
-        >
-          <IoChatbubbleEllipsesSharp size={25} />
+      <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between">
+        <div>
+          <NavLink
+            className={({ isActive }) =>
+              `w-12 h-12 cursor-pointer flex justify-center items-center hover:bg-slate-200 rounded ${
+                isActive && "bg-slate-200"
+              }`
+            }
+            title="chat"
+          >
+            <IoChatbubbleEllipsesSharp size={20} />
+          </NavLink>
+
+          <div
+            title="add friend"
+            className="w-12 h-12 cursor-pointer flex justify-center items-center hover:bg-slate-200 rounded"
+          >
+            <FaUserPlus size={20} />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <button
+            className="mx-auto"
+            title={user.name}
+            onClick={() => setEditUserOpen(true)}
+          >
+            <Avatar width={40} height={40} name={user.name} />
+          </button>
+          <button
+            title="logout"
+            className="w-12 h-12 cursor-pointer flex justify-center items-center hover:bg-slate-200 rounded"
+          >
+            <span className="-ml-2">
+              <BiLogOut size={20} />
+            </span>
+          </button>
         </div>
       </div>
     </div>
