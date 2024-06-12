@@ -34,8 +34,8 @@ const Home = () => {
   });
 
   return (
-    <div>
-      Home
+    <div className="grid lg:grid-cols-[300px,1fr] h-screen max-h-screen">
+      <section className="bg-white">sidebar</section>
       {/* message component */}
       <section>
         <Outlet />
