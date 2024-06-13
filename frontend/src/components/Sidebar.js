@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
@@ -6,10 +7,12 @@ import Avatar from "../components/Avatar";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import EditUserDetails from "./editUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
+
   return (
     <div className="w-full h-full">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between">
@@ -51,6 +54,10 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
+      {/* edit user details */}
+      {editUserOpen && (
+        <EditUserDetails onClose={() => setEditUserOpen(false)} />
+      )}
     </div>
   );
 };
