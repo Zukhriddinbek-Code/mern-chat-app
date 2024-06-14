@@ -1,12 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Avatar from "./Avatar";
+import Divider from "./Divider";
 
 const EditUserDetails = ({ user, onClose }) => {
   const [data, setData] = useState({
     name: user?.name,
     profile_pic: user?.profile_pic,
   });
+
+  const uploadPhotoRef = useRef();
+
+  const handleFileUpload = () => {
+    uploadPhotoRef.current.click();
+  };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +36,7 @@ const EditUserDetails = ({ user, onClose }) => {
 
         <form className="grid gap-3 mt-3" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Name:</label>
             <input
               type="text"
               name="name"
@@ -40,8 +47,8 @@ const EditUserDetails = ({ user, onClose }) => {
             />
           </div>
 
-          <div className="flex flex-col gap-1">
-            <label htmlFor="profile_pic">Photo</label>
+          <div>
+            <div>Photo:</div>
             <div className="my-1 flex items-center gap-4">
               <Avatar
                 width={40}
@@ -50,17 +57,34 @@ const EditUserDetails = ({ user, onClose }) => {
                 name={data?.name}
               />
 
-              <button className="font-bold">Change Photo</button>
-
-              <input type="file" onChange={handleOnChange} className="hidden" />
+              <label htmlFor="profile_pic">
+                <button className="font-bold" onClick={handleFileUpload}>
+                  Change Photo
+                </button>
+                <input
+                  type="file"
+                  id="profile_pic"
+                  onChange={handleOnChange}
+                  className="hidden"
+                  ref={uploadPhotoRef}
+                />
+              </label>
             </div>
           </div>
 
-          <div className="flex gap-2 w-fit ml-auto mt-3">
-            <button className="border-primary text-primary border px-4 py-1 rounded">
+          <Divider />
+
+          <div className="flex gap-2 w-fit ml-auto">
+            <button
+              onClick={onClose}
+              className="border-primary text-primary border px-4 py-1 rounded hover:bg-primary hover:text-white"
+            >
               Cancel
             </button>
-            <button className="border-primary border px-4 bg-primary text-white py-1 rounded">
+            <button
+              onSubmit={handleSubmit}
+              className="border-primary border px-4 bg-primary text-white py-1 rounded hover:bg-secondary"
+            >
               Save
             </button>
           </div>
