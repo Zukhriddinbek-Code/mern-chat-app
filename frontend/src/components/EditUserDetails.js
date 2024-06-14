@@ -16,7 +16,10 @@ const EditUserDetails = ({ user, onClose }) => {
     });
   };
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-40 flex justify-center items-center">
@@ -51,6 +54,15 @@ const EditUserDetails = ({ user, onClose }) => {
 
               <input type="file" onChange={handleOnChange} className="hidden" />
             </div>
+          </div>
+
+          <div className="flex gap-2 w-fit ml-auto mt-3">
+            <button className="border-primary text-primary border px-4 py-1 rounded">
+              Cancel
+            </button>
+            <button className="border-primary border px-4 bg-primary text-white py-1 rounded">
+              Save
+            </button>
           </div>
         </form>
       </div>
