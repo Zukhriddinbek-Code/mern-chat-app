@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Avatar from "./Avatar";
 import Divider from "./Divider";
+import axios from "axios";
+import toast from "react-hot-toast";
+import uploadFile from "../helpers/uploadFile";
 
 const EditUserDetails = ({ user, onClose }) => {
   const [data, setData] = useState({
@@ -11,9 +14,14 @@ const EditUserDetails = ({ user, onClose }) => {
 
   const uploadPhotoRef = useRef();
 
-  const handleFileUpload = () => {
-    uploadPhotoRef.current.click();
-  };
+  useEffect(() => {
+    setData((preve) => {
+      return {
+        ...preve,
+        ...user,
+      };
+    });
+  }, [user]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +31,38 @@ const EditUserDetails = ({ user, onClose }) => {
     });
   };
 
+  const handleFileUpload = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    uploadPhotoRef.current.click();
+  };
+
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
+
+    const uploadPhoto = await uploadFile(file);
+
+    setData((preve) => {
+      return {
+        ...preve,
+        profile_pic: uploadPhoto?.url,
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    try {
+      const url = `${process.env.REACT_APP_backend_url}auth/update`;
+      const response = await axios.post(url, { data });
+
+      toast.success(response?.data?.message);
+    } catch (error) {
+      toast.error(error?.response?.message);
+    }
   };
 
   return (
@@ -64,7 +101,7 @@ const EditUserDetails = ({ user, onClose }) => {
                 <input
                   type="file"
                   id="profile_pic"
-                  onChange={handleOnChange}
+                  onChange={handleUploadPhoto}
                   className="hidden"
                   ref={uploadPhotoRef}
                 />
