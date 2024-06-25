@@ -4,6 +4,8 @@ import Avatar from "./Avatar";
 import Divider from "./Divider";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 import uploadFile from "../helpers/uploadFile";
 
 const EditUserDetails = ({ user, onClose }) => {
@@ -13,6 +15,7 @@ const EditUserDetails = ({ user, onClose }) => {
   });
 
   const uploadPhotoRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setData((preve) => {
@@ -57,11 +60,21 @@ const EditUserDetails = ({ user, onClose }) => {
 
     try {
       const url = `${process.env.REACT_APP_backend_url}auth/update`;
-      const response = await axios.post(url, { data });
+      const response = await axios({
+        method: "post",
+        url: url,
+        data: data,
+        withCredentials: true,
+      });
 
       toast.success(response?.data?.message);
+
+      if (response.data.success) {
+        dispatch(setUser(response.data.data));
+      }
     } catch (error) {
-      toast.error(error?.response?.message);
+      console.log(error);
+      // toast.error(error?.response?.message);
     }
   };
 
