@@ -7,7 +7,7 @@ import Avatar from "../components/Avatar";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import EditUserDetails from "./EditUserDetails";
+import EditUserDetails from "./editUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
@@ -42,7 +42,12 @@ const Sidebar = () => {
             title={user.name}
             onClick={() => setEditUserOpen(true)}
           >
-            <Avatar width={40} height={40} name={user.name} />
+            <Avatar
+              width={40}
+              height={40}
+              name={user.name}
+              imageUrl={user.profile_pic}
+            />
           </button>
           <button
             title="logout"
