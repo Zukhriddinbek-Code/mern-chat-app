@@ -7,7 +7,7 @@ import Avatar from "../components/Avatar";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import EditUserDetails from "./editUserDetails";
+import EditUserDetails from "./EditUserDetails";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
