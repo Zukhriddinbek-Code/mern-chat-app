@@ -8,13 +8,14 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import EditUserDetails from "./EditUserDetails";
+import Divider from "./Divider";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full grid grid-cols-[48px,1fr] bg-white">
       <div className="bg-slate-100 w-12 h-full rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between">
         <div>
           <NavLink
@@ -59,6 +60,19 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
+
+      <div className="w-full">
+        <div className="flex items-center h-16">
+          <h2 className="text-xl font-bold p-4 text-slate-800">Message</h2>
+        </div>
+
+        {/* //divider */}
+        <div className="bg-slate-200 p-[0.5px]"></div>
+
+        {/* messages */}
+        <div></div>
+      </div>
+
       {/* edit user details */}
       {editUserOpen && (
         <EditUserDetails onClose={() => setEditUserOpen(false)} user={user} />

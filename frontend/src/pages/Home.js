@@ -21,7 +21,7 @@ const Home = () => {
 
       dispatch(setUser(userDetails.data.data));
 
-      if (userDetails.data.logout) {
+      if (userDetails.data.data.logout) {
         dispatch(logout());
         navigate("/email");
         // localStorage.removeItem("token");
