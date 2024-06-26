@@ -48,10 +48,13 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div>
+      <div className="lg:flex justify-center items-center flex-col gap-2 hidden">
         <div>
-          <img src={logo} alt="logo" width={200} />
+          <img src={logo} alt="logo" width={250} />
         </div>
+        <p className="text-lg mt-2 text-slate-500">
+          Select user to send a message
+        </p>
       </div>
     </div>
   );
