@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
+import { FiArrowUpLeft } from "react-icons/fi";
 
 import Avatar from "../components/Avatar";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useState } from "react";
 import EditUserDetails from "./EditUserDetails";
 import Divider from "./Divider";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
+  const [allUser, setAllUser] = useState([]);
 
   return (
     <div className="w-full h-full grid grid-cols-[48px,1fr] bg-white">
@@ -70,7 +72,19 @@ const Sidebar = () => {
         <div className="bg-slate-200 p-[0.5px]"></div>
 
         {/* messages */}
-        <div></div>
+        <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
+          {allUser.length === 0 && (
+            <div>
+              <div>
+                <FiArrowUpLeft size={50} />
+              </div>
+
+              <p className="text-lg text-center text-slate-500">
+                Explore users to start messaging.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* edit user details */}
