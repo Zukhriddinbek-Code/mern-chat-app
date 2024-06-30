@@ -10,11 +10,13 @@ import { FiArrowUpLeft } from "react-icons/fi";
 import Avatar from "../components/Avatar";
 import EditUserDetails from "./EditUserDetails";
 import Divider from "./Divider";
+import SearchUser from "./SearchUser";
 
 const Sidebar = () => {
   const user = useSelector((state) => state?.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
   const [allUser, setAllUser] = useState([]);
+  const [searchOpenUser, setSearchOpenUser] = useState(false);
 
   return (
     <div className="w-full h-full grid grid-cols-[48px,1fr] bg-white">
@@ -74,8 +76,8 @@ const Sidebar = () => {
         {/* messages */}
         <div className="h-[calc(100vh-65px)] overflow-x-hidden overflow-y-auto scrollbar">
           {allUser.length === 0 && (
-            <div>
-              <div>
+            <div className="mt-12">
+              <div className="flex justify-center items-center my-4 text-slate-500">
                 <FiArrowUpLeft size={50} />
               </div>
 
@@ -90,6 +92,11 @@ const Sidebar = () => {
       {/* edit user details */}
       {editUserOpen && (
         <EditUserDetails onClose={() => setEditUserOpen(false)} user={user} />
+      )}
+
+      {/* search user */}
+      {searchOpenUser && (
+        <SearchUser onClose={() => setSearchOpenUser(false)} />
       )}
     </div>
   );
