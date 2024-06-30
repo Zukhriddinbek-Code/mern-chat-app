@@ -16,7 +16,7 @@ const Sidebar = () => {
   const user = useSelector((state) => state?.user);
   const [editUserOpen, setEditUserOpen] = useState(false);
   const [allUser, setAllUser] = useState([]);
-  const [searchOpenUser, setSearchOpenUser] = useState(false);
+  const [searchOpenUser, setSearchOpenUser] = useState(true);
 
   return (
     <div className="w-full h-full grid grid-cols-[48px,1fr] bg-white">
@@ -37,7 +37,7 @@ const Sidebar = () => {
             title="add friend"
             className="w-12 h-12 cursor-pointer flex justify-center items-center hover:bg-slate-200 rounded"
           >
-            <FaUserPlus size={20} />
+            <FaUserPlus size={20} onClick={() => setSearchOpenUser(true)} />
           </div>
         </div>
 
