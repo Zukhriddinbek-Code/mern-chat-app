@@ -1,12 +1,32 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import axios from "axios";
+
 import LoadingCircle from "./LoadingCircle";
 import UserCardSearch from "./UserCardSearch";
 
 const SearchUser = () => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
+  const handleSearchUser = async () => {
+    const url = `${process.env.REACT_APP_backend_url}auth/search-user`;
+    try {
+      const response = await axios.post(url, { search: search });
+      setSearchUser(response.data.data);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    handleSearchUser();
+  }, [search]);
+
+  console.log(searchUser);
 
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 bg-slate-700 bg-opacity-40 p-2">
@@ -17,6 +37,8 @@ const SearchUser = () => {
             type="text"
             placeholder="search user by name/email"
             className="w-full outline-none py-1 h-full px-4"
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
           />
           <div className="h-14 w-14 flex justify-center items-center">
             <IoSearchOutline size={24} />

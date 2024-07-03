@@ -9,6 +9,7 @@ import {
   userDetails,
   logout,
   updateUser,
+  searchUser,
 } from "../controllers/auth.js";
 
 //create user api
@@ -28,5 +29,8 @@ router.get("/logout", logout);
 
 //updated user name, profile_pic
 router.post("/update", updateUser);
+
+//search result
+router.post("/search-user", searchUser);
 
 export default router;

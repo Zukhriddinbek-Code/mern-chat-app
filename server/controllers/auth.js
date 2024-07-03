@@ -164,7 +164,7 @@ export const updateUser = async (req, res) => {
 
 export const searchUser = async (req, res) => {
   try {
-    const { search } = re.body;
+    const { search } = req.body;
     const query = new RegExp(search, "i", "g");
 
     const user = await UserModel.find({
