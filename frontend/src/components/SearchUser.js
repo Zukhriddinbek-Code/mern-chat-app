@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import LoadingCircle from "./LoadingCircle";
+import UserCardSearch from "./UserCardSearch";
 
 const SearchUser = () => {
   const [searchUser, setSearchUser] = useState([]);
@@ -30,7 +31,17 @@ const SearchUser = () => {
           )}
 
           {/* if loading is true */}
-          {loading && <LoadingCircle />}
+          {loading && (
+            <p>
+              <LoadingCircle />
+            </p>
+          )}
+
+          {searchUser.length !== 0 &&
+            !loading &&
+            searchUser.map((user, i) => {
+              return <UserCardSearch key={user._id} user={user} />;
+            })}
         </div>
       </div>
     </div>

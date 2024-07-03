@@ -161,3 +161,23 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+export const searchUser = async (req, res) => {
+  try {
+    const { search } = re.body;
+    const query = new RegExp(search, "i", "g");
+
+    const user = await UserModel.find({
+      $or: [{ name: query }, { email: query }],
+    });
+
+    return res
+      .status(200)
+      .json({ message: "found users", data: user, success: true });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
