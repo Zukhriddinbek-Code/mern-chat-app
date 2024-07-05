@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -69,6 +71,12 @@ const SearchUser = ({ onClose }) => {
               );
             })}
         </div>
+      </div>
+
+      <div className="top-0 right-0 absolute text-2xl p-2 lg:text-4xl hover:text-white">
+        <button onClick={onClose}>
+          <IoClose />
+        </button>
       </div>
     </div>
   );
