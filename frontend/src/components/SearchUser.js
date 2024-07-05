@@ -7,7 +7,7 @@ import axios from "axios";
 import LoadingCircle from "./LoadingCircle";
 import UserCardSearch from "./UserCardSearch";
 
-const SearchUser = () => {
+const SearchUser = ({ onClose }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -64,7 +64,9 @@ const SearchUser = () => {
           {searchUser.length !== 0 &&
             !loading &&
             searchUser.map((user, i) => {
-              return <UserCardSearch key={user._id} user={user} />;
+              return (
+                <UserCardSearch key={user._id} onClose={onClose} user={user} />
+              );
             })}
         </div>
       </div>
