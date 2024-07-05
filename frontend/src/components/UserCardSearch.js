@@ -1,5 +1,20 @@
-const UserCardSearch = () => {
-  return <div>UserCardSearch</div>;
+import Avatar from "./Avatar";
+
+const UserCardSearch = ({ user }) => {
+  return (
+    <div className="flex items-center gap-2 p-2 lg:p-4 border border-transparent border-b-slate-200 hover:border-primary rounded cursor-pointer">
+      <div>
+        <Avatar width={50} height={50} name={user?.name} />
+      </div>
+
+      <div>
+        <div className="font-semibold text-ellipsis line-clamp-1">
+          {user?.name}
+        </div>
+        <p className="text-sm text-ellipsis line-clamp-1">{user.email}</p>
+      </div>
+    </div>
+  );
 };
 
 export default UserCardSearch;

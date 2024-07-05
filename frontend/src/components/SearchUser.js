@@ -9,13 +9,15 @@ import UserCardSearch from "./UserCardSearch";
 
 const SearchUser = () => {
   const [searchUser, setSearchUser] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
 
   const handleSearchUser = async () => {
     const url = `${process.env.REACT_APP_backend_url}auth/search-user`;
     try {
+      setLoading(true);
       const response = await axios.post(url, { search: search });
+      setLoading(false);
       setSearchUser(response.data.data);
     } catch (error) {
       toast.error(error?.response?.data?.message);
