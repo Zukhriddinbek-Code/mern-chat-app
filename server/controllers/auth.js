@@ -169,7 +169,7 @@ export const searchUser = async (req, res) => {
 
     const user = await UserModel.find({
       $or: [{ name: query }, { email: query }],
-    });
+    }).select("-password");
 
     return res
       .status(200)
