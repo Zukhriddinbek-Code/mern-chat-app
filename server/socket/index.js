@@ -2,10 +2,10 @@ import express from "express";
 import { Server } from "socket.io";
 import { http } from "http";
 
-const app = express();
+export const app = express();
 
 //socket connection
-const server = http.createServer(app);
+export const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
@@ -13,4 +13,11 @@ const io = new Server(server, {
   },
 });
 
-io.on();
+io.on("connection", (socket) => {
+  console.log("user disconnected", socket.id);
+
+  //disconnect
+  io.on("disconnect", () => {
+    console.log("user disconnected", socket.id);
+  });
+});
