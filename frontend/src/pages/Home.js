@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import openSocket from "socket.io-client";
+
 import { logout, setUser } from "../redux/userSlice";
 import Sidebar from "../components/Sidebar";
 import logo from "../assets/logo.png";
@@ -34,6 +36,17 @@ const Home = () => {
 
   useEffect(() => {
     fetchUserDetails();
+  });
+
+  //socket connection
+  useEffect(() => {
+    const socketConnection = openSocket(process.env.REACT_APP_backend_url, {
+      auth: { token: localStorage.getItem("token") },
+    });
+
+    return () => {
+      socketConnection.disconnect();
+    };
   });
 
   const basePath = location.pathname === "/";

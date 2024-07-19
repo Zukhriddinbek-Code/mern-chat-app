@@ -5,8 +5,9 @@ import cookieParser from "cookie-parser";
 
 import { connectDB } from "./config/connectDB.js";
 import authRoutes from "./routes/auth.js";
+import { app, server } from "./socket/index.js";
 
-const app = express();
+// const app = express();
 dotenv.config();
 
 app.use(
@@ -29,7 +30,7 @@ app.use("/auth", authRoutes);
 
 connectDB()
   .then((response) => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log("App running on 8080");
     });
   })
