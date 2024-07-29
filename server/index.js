@@ -28,12 +28,11 @@ app.get("/", (req, res) => {
 //api endpoints
 app.use("/auth", authRoutes);
 
-connectDB()
-  .then((response) => {
-    server.listen(PORT, () => {
-      console.log("App running on 8080");
-    });
-  })
-  .catch((error) => {
-    console.log(error);
+connectDB().then(() => {
+  server.listen(PORT, () => {
+    console.log("App running on 8080");
   });
+});
+// .catch((error) => {
+//   console.log(error);
+// });

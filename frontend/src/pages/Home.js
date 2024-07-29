@@ -44,6 +44,10 @@ const Home = () => {
       auth: { token: localStorage.getItem("token") },
     });
 
+    socketConnection.on("onlineUser", (data) => {
+      console.log(data);
+    });
+
     return () => {
       socketConnection.disconnect();
     };
